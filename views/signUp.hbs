@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Fakoot</title>
-    {{> head}}
-    <link rel="stylesheet" type="text/css" href="styles/index.css">
-    <link rel="stylesheet" type="text/css" href="styles/signUp.css">
-</head>
-<body>
-    {{> menu}}
-    <div id="content">
-            <div class="background" id="contentBackground"></div>
-            <div id="greetBox">
-                <div id="greetBoxWelcomeText">
-                    <p>Welcome to Fakoot!</p>
-                    <p>Creat a account!!!</p>    
+    <head>
+        <title>Fakoot</title>
+        {{> head}}
+        <link rel="stylesheet" type="text/css" href="styles/index.css">
+        <link rel="stylesheet" type="text/css" href="styles/signUp.css">
+    </head>
+    <body>
+        {{> menu}}
+        <div id="content">
+                <div class="background" id="contentBackground"></div>
+                <div id="greetBox">
+                    <div id="greetBoxWelcomeText">
+                        <p>Welcome to Fakoot!</p>
+                        <p>Creat a account!!!</p>    
+                    </div>
+                    <div id="signUpBoxUsernameInputWrap">
+                        <input name="user_name" class="cards" id="signUpBoxUsernameInput" placeholder="Enter your username"/>
+                        <input type="password" name="password" class="cards" id="signUpBoxpasswordInput" placeholder="Enter your password"/>
+                        <input type="password" name="comfirmpassword" class="cards" id="signUpBoxconfirmpasswordInput" placeholder="Confirm your password"/>
+                    </div>
+                    <div id="signUpBoxStartButtonWrap">
+                        <div class="cards buttons" id="signUpBoxStartButton">CREATE</div>
+                    </div>
                 </div>
-                <div id="signUpBoxUsernameInputWrap">
-                    <input name="user_name" class="cards" id="signUpBoxUsernameInput" placeholder="Enter your username"/>
-                    <input type="password" name="password" class="cards" id="signUpBoxpasswordInput" placeholder="Enter your password"/>
-                    <input type="password" name="comfirmpassword" class="cards" id="signUpBoxconfirmpasswordInput" placeholder="Confirm your password"/>
-                </div>
-                <div id="signUpBoxStartButtonWrap">
-                    <div class="cards buttons" id="signUpBoxStartButton">CREATE</div>
-                </div>
-            </div>
-    </div>
-
-</body>
+        </div>
+        <script src="javascripts/signUp.js"></script>
+    </body>
 </html>
