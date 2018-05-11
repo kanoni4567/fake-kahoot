@@ -14,6 +14,7 @@ test ('Test if createQuestion works', async () => {
 					'Maksym',
 					1
 		)).resolves.toEqual(true)
+
 })
 
 test ('Test if createQuestion validation works (empty imput)', async () => {
