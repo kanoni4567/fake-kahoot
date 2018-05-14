@@ -54,7 +54,6 @@ class Account {
     return new Promise((resolve, reject) => {
       this.encryptPassword(password).then((result) => {
         db.executeQuery(`INSERT INTO public."ACCOUNTS"("USERNAME", "PASSWORD") VALUES ('${username}', '${result}');`).then((result) => {
-          console.log(result)
           resolve(result)
         })
       })
@@ -72,8 +71,21 @@ class Account {
   saveCurrentScore () {
     return new Promise((resolve, reject) => {
       let date = new Date()
-      let timeStamp = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-      db.executeQuery(`INSERT INTO public."SCORES" ("ACCOUNT_ID", "SCORE", "HIGHEST_STREAK", "DATE") VALUES ('${this.userID}', '${this.currentScore.userScore}', '${this.currentScore.highestStreak}', '${timeStamp}')`).then((result) => {
+      let timeStamp = `${date.toLocaleDateString('en-CA')} ${date.toLocaleTimeString('en-CA')}`
+
+      db.executeQuery(
+        `INSERT INTO public."SCORES" (
+        "ACCOUNT_ID",
+        "SCORE",
+        "HIGHEST_STREAK",
+        "DATE"
+        ) VALUES (
+        '${this.userID}',
+        '${this.currentScore.userScore}',
+        '${this.currentScore.highestStreak}',
+        '${timeStamp}'
+        )`
+      ).then((result) => {
         resolve(result)
       }).catch((error) => {
         reject(error)
@@ -88,33 +100,40 @@ class Account {
    */
   validateUsername (USERNAME) {
     return new Promise((resolve, reject) => {
-      db.executeQuery('SELECT "USERNAME" FROM "ACCOUNTS"').then((result) => {
-        let userArray = JSON.parse(result)
-        var found = userArray.some(function (el) {
-          return el.USERNAME === USERNAME
+      if (this.regexUsername(USERNAME)) {
+        db.executeQuery('SELECT "USERNAME" FROM public."ACCOUNTS";').then((result) => {
+          let userArray = JSON.parse(result)
+          let found = userArray.some(function (el) {
+            return el.USERNAME === USERNAME
+          })
+          resolve(!found)
         })
-        resolve(!found)
-      })
+      } else {
+        reject(new Error('Bad Username'))
+      }
     })
   }
 
   /**
-   * @desc Validates for a strong password
-   * Jump to bottom of Loading... dialog
-   * Add a File - ACIT-2811-0 - UX/UI Development - 85406 - Lecture/Lab Combo - British Columbia Institute of Technology
-   * Close this Dialog
-   * Jump to top of Loading... dialog
-   * Upload files from your computer.
-   * e otherwise
-   * @param pass - password passed by the user <** correct? **>
-   * @returns {boolean} if password is valid returns true, fals
+   * tests regex pattern on username string to validate usernames
+   * @param username
+   * @returns {boolean}
    */
-  validatePassword (pass) {
+  regexUsername (username) {
+    return /^[a-zA-Z\d]{3,29}$/.test(username)
+  }
+
+  /**
+   * @desc Validates for a strong password
+   * @param pass - password passed by the user <** correct? **>
+   * @returns {boolean} if password is valid returns true, false
+   */
+  regexPassword (pass) {
     let numbers = pass.match(/\d+/g)
     let uppers = pass.match(/[A-Z]/)
     let lowers = pass.match(/[a-z]/)
     let lengths = pass.length >= 6
-    let valid = undefined
+    let valid
 
     if (numbers === null || uppers === null || lowers === null || lengths === false) valid = false
 

@@ -1,0 +1,38 @@
+{
+  "plugins": [
+    "plugins/markdown",
+    "plugins/summarize",
+    "/home/pnazari/development/fake-kahoot/node_modules/jsdoc-http-plugin"
+  ],
+  "recurseDepth": 10,
+  "source": {
+    "include": [
+      "./controllers/",
+      "./models/",
+      "./public/"
+    ],
+    "exclude": [
+      "./public/assets/",
+      "./public/styles/",
+      "./node_modules/",
+      "./public/javascripts/timer.js"
+    ],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "sourceType": "module",
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc","closure"]
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false
+  },
+  "opts": {
+    "recurse": true,
+    "destination": "./out/",
+    "encoding": "utf8"
+  }
+}
+

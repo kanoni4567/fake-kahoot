@@ -142,12 +142,32 @@ app.post('/storeuser', (request, response) => {
   }
 })
 
-app.post('/playWithoutAccount', (request, response) => {
+/**
+ * @desc Function creates a new sessionID and a new User using the Account class, allowing users to play without an account.
+ * @param {Object} request - Node.js request object
+ * @param {Object} response - Node.js response object
+ */
+app.post('/playAsGuest', (request, response) => {
   let sessionID = request.session.id.toString()
   let newUser = new account.Account(request.body.username)
   playingUsers[sessionID] = {}
   playingUsers[sessionID].user = newUser
   response.send(newUser.toJSON())
+})
+
+app.post('/play', (request, response) => {
+  let sessionID = request.session.id.toString()
+  response.send(playingUsers[sessionID].user.toJSON())
+})
+
+/**
+ * @desc Function to start the game
+ * @param {Object} request - Node.js request ob ject
+ * @param {Object} response - Node.js response object
+ */
+app.post('/play', (request, response) => {
+  let sessionID = request.session.id.toString()
+  response.send(playingUsers[sessionID].user.toJSON())
 })
 
 /**
@@ -197,8 +217,9 @@ app.post('/starttrivia', (request, response) => {
   if (Object.keys(playingUsers).includes(sessionID)) {
     let newQuestions = new questions.Questions()
     playingUsers[sessionID].questions = newQuestions
-    console.log(request.body.chosenType)
-    newQuestions.getQuestions(10, request.body.chosenType).then((result) => {
+    console.log(request.body.chosenType, request.body.chosenDiff)
+    newQuestions.getQuestions(10, request.body.chosenType, request.body.chosenDiff).then((result) => {
+
       response.send(playingUsers[sessionID].questions.minimalquestionsList[playingUsers[sessionID].questions.currentQuestion])
     })
   } else {
@@ -271,12 +292,14 @@ app.post('/validateusername', (request, response) => {
     } else {
       response.sendStatus(406)
     }
+  }).catch(error => {
+    console.log(error)
   })
 })
 
 app.post('/validatepassword', (request, response) => {
   let userAccount = new account.Account()
-  let result = userAccount.validatePassword(request.body.PASSWORD.toString())
+  let result = userAccount.regexPassword(request.body.PASSWORD.toString())
   if (result) {
     response.sendStatus(200)
   } else {
@@ -296,12 +319,16 @@ app.post('/register', (request, response) => {
   let userAccount = new account.Account()
 
   userAccount.validateUsername(USERNAME).then((result) => {
-    if (result && userAccount.validatePassword(PASSWORD) && PASSWORD === CPASSWORD) {
+    if (result && userAccount.regexPassword(PASSWORD) && PASSWORD === CPASSWORD) {
       console.log('validation passed')
       userAccount.register(USERNAME, PASSWORD).then((finalResult) => {
         response.send(finalResult)
       })
     } else {
+      response.sendStatus(406)
+    }
+  }).catch(error => {
+    if (error.message === 'Bad Username') {
       response.sendStatus(406)
     }
   })
@@ -316,13 +343,13 @@ app.post('/createQuestion', (request, response) => {
   let session_id = request.session.id.toString()
   let user_id = playingUsers[session_id].user.userID
 
-  userQuestions.createQuestion(QUESTION_CONTENT,RIGHT_ANSWER,WRONG_ANSWER1,WRONG_ANSWER2,WRONG_ANSWER3,user_id).then((result) => {
+  userQuestions.createQuestion(QUESTION_CONTENT, RIGHT_ANSWER, WRONG_ANSWER1, WRONG_ANSWER2, WRONG_ANSWER3, user_id).then((result) => {
     if (result) {
       response.sendStatus(200)
     } else {
       response.sendStatus(406)
     }
-  }) 
+  })
 })
 
 /**

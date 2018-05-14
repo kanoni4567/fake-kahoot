@@ -1,6 +1,5 @@
 const fs = require('fs')
-const database = require('./database')
-
+const db = require('./database')
 /**
  * @class Users
  * @classdesc This is the Users Class
@@ -13,7 +12,7 @@ class Users {
    * @constructor {string} this.fileName
    * @param fileName
    */
-  constructor (fileName = './users_data.json') {
+  constructor (fileName = './models/users_data.json') {
     this.fileName = fileName
     this.userList = []
     this.userList = this.loadUsers()
@@ -35,6 +34,7 @@ class Users {
   };
 
   /**
+   * @deprecated
     * It's a function that saves users' info into a file.
     */
   saveUsers () {
@@ -60,10 +60,10 @@ class Users {
   };
 
   /**
-     * @desc Sort user information with sortOption as keyword.
-     * @param {string} sortOption - keyword for sorting
-     * @return {array} sorted object contains user information
-     */
+   * @desc Sort user information with sortOption as keyword.
+   * @param {string} sortOption - keyword for sorting
+   * @return {array} sorted object contains user information
+   */
   sortScores (sortOption) {
     let userInfo = this.userList.user.slice(0)
     userInfo.sort((a, b) => {
