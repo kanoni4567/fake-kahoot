@@ -293,7 +293,7 @@ app.post('/validateusername', (request, response) => {
       response.sendStatus(406)
     }
   }).catch(error => {
-    console.log(error)
+    response.sendStatus(406)
   })
 })
 
