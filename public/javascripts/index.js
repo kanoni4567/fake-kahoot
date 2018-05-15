@@ -149,8 +149,9 @@ let getNextQuestion = () => {
       }, 1200)
       swal({
         title: "Bonus Question!!",
-        text: "Do you want to answer a user-created bonus question? You can double the score or lose it all!",
+        text: "Do you want to answer a user-created bonus question?\nYou can double the score or lose it all!",
         icon: "warning",
+        dangerMode: true,
         buttons: ["Oh noez!", "Aww yiss!"],
       })
       .then((doBonus) => {
@@ -184,7 +185,7 @@ let playBonus = () => {
       console.log(currentQuestion)
       displayNotification('beer')
       displayQuestion()
-      questionViewWrap.style.backgroundColor = 'rgba(255,131,0,1)'
+      questionViewWrap.style.backgroundColor = 'rgba(255, 102, 0,1)'
     }
   })
 }
