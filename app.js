@@ -135,6 +135,9 @@ app.post('/storeuser', (request, response) => {
       playingUsers[sessionID].user.saveCurrentScore().then((result) => {
         //console.log(playingUsers[sessionID].questions)
         delete playingUsers[sessionID].questions
+        playingUsers[sessionID].user.currentScore.userScore = 0
+        playingUsers[sessionID].user.currentScore.currentStreak = 0
+        playingUsers[sessionID].user.currentScore.highestStreak = 0
         response.sendStatus(201)
       }).catch((error) => {
         console.log(error)
