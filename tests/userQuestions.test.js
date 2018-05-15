@@ -38,3 +38,7 @@ test('Test if createQuestion validation works (same answers)', async () => {
     1
   )).resolves.toEqual(false)
 })
+
+test('Test if getRandomQuestions() works', async () => {
+  await expect(userQuestions.getRandomQuestions()).resolves.toBeTruthy()
+})
