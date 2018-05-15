@@ -72,7 +72,7 @@ class Account {
     return new Promise((resolve, reject) => {
       let date = new Date()
       let timeStamp = `${date.toLocaleDateString()} ${date.toLocaleTimeString('en-CA')}`
-      console.log(timeStamp)
+      console.log(this)
       db.executeQuery(
         `INSERT INTO public."SCORES" (
         "ACCOUNT_ID",
