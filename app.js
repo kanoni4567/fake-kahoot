@@ -196,7 +196,7 @@ app.post('/getnextquestion', (request, response) => {
         response.send(playingUsers[sessionID].questions.minimalquestionsList[playingUsers[sessionID].questions.currentQuestion])
       } else {
         delete playingUsers[sessionID].questions
-        delete playingUsers[sessionID].user
+        //delete playingUsers[sessionID].user
         response.sendStatus(204)
       }
     } else {
