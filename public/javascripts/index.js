@@ -132,7 +132,6 @@ let getNextQuestion = () => {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       currentQuestion = JSON.parse(xmlhttp.responseText)
       displayQuestion()
-      startMyTimer()
       greetBox.style.opacity = '0'
       setTimeout(() => {
         greetBox.style.display = 'none'
@@ -149,11 +148,11 @@ let getNextQuestion = () => {
       }, 1200)
       swal({
         title: "Bonus Question!!",
-        text: "Do you want to answer a user-created bonus question? You can double the score or lose it all!",
+        text: "Do you want to answer a user-created bonus question?\nYou can double the score or lose it all!",
         icon: "warning",
+        dangerMode: true,
         buttons: ["Oh noez!", "Aww yiss!"],
-      })
-      .then((doBonus) => {
+      }).then((doBonus) => {
         if (doBonus) {
           playBonus()
         } else {
@@ -184,7 +183,7 @@ let playBonus = () => {
       console.log(currentQuestion)
       displayNotification('beer')
       displayQuestion()
-      questionViewWrap.style.backgroundColor = 'rgba(255,131,0,1)'
+      questionViewWrap.style.backgroundColor = 'rgba(255, 102, 0,1)'
     }
   })
 }
@@ -211,6 +210,8 @@ let startTrivia = () => {
 let displayQuestion = () => {
   notifyWrap.style.display = 'block'
   questionViewWrap.style.top = '-100vh'
+  countDownTimer()
+  moveBar()
   setTimeout(() => {
     notification.style.right = '0'
   }, 1)
@@ -227,8 +228,7 @@ let displayQuestion = () => {
     setTimeout(() => {
       notifyWrap.style.display = 'none'
     }, 300)
-    startMyTimer()
-  }, 1200)
+  }, 1000)
 }
 
 /**

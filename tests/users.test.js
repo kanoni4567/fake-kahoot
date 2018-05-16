@@ -35,24 +35,14 @@ afterAll(() => {
  * If beforeEach is inside a describe block, it runs for each test in the describe block.
  */
 beforeEach(() => {
-<<<<<<< HEAD
-  userInst = new usersM.User()
-  usersInst = new usersM.Users('./mine/users_data.json')
-=======
   return undefined
->>>>>>> bonusQuestionBranch
 })
 
 /**
  * If afterEach is inside a describe block, it runs for each test in the describe block.
  */
 afterEach(() => {
-<<<<<<< HEAD
-  userInst = undefined
-  usersInst = undefined
-=======
   return undefined
->>>>>>> bonusQuestionBranch
 })
 
 describe('Testing class instances in users.js', () => {
@@ -76,19 +66,12 @@ describe('Testing class instances in users.js', () => {
 
 describe('Users.displayTopUsers()', () => {
   it('should return html elements', () => {
-<<<<<<< HEAD
-    let usersInst = new usersM.Users('./mine/users_data.json').displayTopUsers()
-    expect(/<[a-z/][\s\S]*>/i.test(usersInst)).toBeTruthy()
-=======
     let usersInst = new usersM.Users()
     expect(/<[a-z/][\s\S]*>/i.test(usersInst.displayTopUsers())).toBeTruthy()
->>>>>>> bonusQuestionBranch
   })
 })
 
 describe('Users.loadUsers()', () => {
-<<<<<<< HEAD
-=======
   let usersInst = new usersM.Users()
   const fs = require('fs')
   beforeEach(() => {
@@ -97,15 +80,10 @@ describe('Users.loadUsers()', () => {
     }
   })
 
->>>>>>> bonusQuestionBranch
   it('should read file and return an object', () => {
     expect(usersInst.loadUsers()).toBeTruthy()
   })
 
-<<<<<<< HEAD
-  it('should create a file and return undefined', () => {
-    fs.unlinkSync('./mine/users_data.json')
-=======
   afterAll(() => {
     if (fs.existsSync('./mine') || fs.existsSync('./mine/users_data.json')) {
       fs.unlinkSync('./mine/users_data.json')
@@ -115,7 +93,6 @@ describe('Users.loadUsers()', () => {
 
   it('should create a file and return undefined', () => {
     usersInst.fileName = './mine/users_data.json'
->>>>>>> bonusQuestionBranch
     expect(usersInst.loadUsers()).toBeFalsy()
   })
 })
