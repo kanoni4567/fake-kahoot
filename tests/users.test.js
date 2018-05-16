@@ -23,7 +23,6 @@ beforeAll(() => {
 })
 
 afterAll(() => {
-
   if (fs.existsSync('./mine') || fs.existsSync('./mine/users_data.json')) {
     fs.unlinkSync('./mine/users_data.json')
     fs.rmdirSync('./mine/')
