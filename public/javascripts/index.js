@@ -132,7 +132,6 @@ let getNextQuestion = () => {
     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
       currentQuestion = JSON.parse(xmlhttp.responseText)
       displayQuestion()
-      startMyTimer()
       greetBox.style.opacity = '0'
       setTimeout(() => {
         greetBox.style.display = 'none'
@@ -153,8 +152,7 @@ let getNextQuestion = () => {
         icon: "warning",
         dangerMode: true,
         buttons: ["Oh noez!", "Aww yiss!"],
-      })
-      .then((doBonus) => {
+      }).then((doBonus) => {
         if (doBonus) {
           playBonus()
         } else {
@@ -212,6 +210,8 @@ let startTrivia = () => {
 let displayQuestion = () => {
   notifyWrap.style.display = 'block'
   questionViewWrap.style.top = '-100vh'
+  countDownTimer()
+  moveBar()
   setTimeout(() => {
     notification.style.right = '0'
   }, 1)
@@ -228,8 +228,7 @@ let displayQuestion = () => {
     setTimeout(() => {
       notifyWrap.style.display = 'none'
     }, 300)
-    startMyTimer()
-  }, 1200)
+  }, 1000)
 }
 
 /**
