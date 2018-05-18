@@ -151,9 +151,13 @@ let getNextQuestion = () => {
       swal({
         title: "Bonus Question!!",
         text: "Do you want to answer a user-created bonus question?\nYou can double the score or lose it all!",
-        icon: "warning",
-        dangerMode: true,
-        buttons: ["Oh noez!", "Aww yiss!"],
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes!',
+        cancelButtonText: 'No!',
+        reverseButtons: true,
+        animation: false,
+        customClass: 'animated tada'
       }).then((doBonus) => {
         if (doBonus) {
           playBonus()
