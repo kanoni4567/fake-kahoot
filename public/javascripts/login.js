@@ -21,6 +21,7 @@ let showLoginWindow = () => {
     overlayWindow.style.backgroundColor = 'rgba(236, 239, 241, 0.5)'
     loginWrap.style.top = '50vh'
   }, 10)
+  loginInputUsername.focus()
 }
 
 let login = () => {
