@@ -29,6 +29,7 @@ let executeQuery = (query, values) => {
         if (res.command === 'SELECT') {
           let result = JSON.stringify(res.rows)
           client.end()
+          //console.log(result)
           resolve(result)
         } else {
           client.end()
